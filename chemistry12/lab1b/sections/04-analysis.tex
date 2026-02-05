@@ -1,0 +1,86 @@
+\section{Analysis}
+
+\subsection{Concentration Test Analysis}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Mass Change Over Time of an Open \ce{CaCO3(s)} and \ce{HCl(aq)} Reaction},
+            xlabel={Time (minutes)},
+            ylabel={Test 1 System Mass (g)},
+            ylabel style={color=blue},
+            ymajorgrids=true,
+            xmajorgrids=true,
+            grid style=dashed,
+            xmin=0, xmax=5,
+            ymin=27.0, ymax=29,
+            width=12cm,
+            height=7cm,
+            axis y line*=left,
+            legend style={at={(0.03,0.97)}, anchor=north west}
+        ]
+        
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 1 Mass (g),
+            col sep=comma
+        ] {data/concentration/timeseries.csv};
+        \addlegendentry{Test 1 Mass (1.0M \ce{HCl})}
+
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 28.5)
+            (5, 27.8)
+        };
+        \addlegendentry{Test 1 Average Rate}
+        
+        \end{axis}
+        
+        \begin{axis}[
+            xlabel={Time (minutes)},
+            ylabel={Test 2 System Mass (g)},
+            ylabel style={color=red},
+            xmin=0, xmax=5,
+            ymin=44.5, ymax=46.5,
+            width=12cm,
+            height=7cm,
+            axis y line*=right,
+            axis x line=none,
+            legend style={at={(0.97,0.97)}, anchor=north east}
+        ]
+        
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 2 Mass (g),
+            col sep=comma
+        ] {data/concentration/timeseries.csv};
+        \addlegendentry{Test 2 Mass (3.0M \ce{HCl})}
+
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 46.1)
+            (5, 44.8)
+        };
+        \addlegendentry{Test 2 Average Rate}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Change in mass of the system with average rates.}
+\end{figure}
