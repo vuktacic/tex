@@ -1,0 +1,56 @@
+name: LaTeX CI Pipeline
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Compile All Reports
+        run: |
+          # Find every directory containing a main.tex and compile it
+          find . -name "main.tex" | while read -r tex_file; do
+            echo "Compiling $tex_file..."
+            
+            # We use the docker image directly to avoid Action input limitations
+            docker run --rm -v "$(pwd):/workdir" xuanyuan/latex-docker \
+              latexmk -pdf -cd -interaction=nonstopmode "$tex_file"
+          done
+
+      - name: Organize for Web
+        run: |
+          mkdir -p public
+          # Copy PDFs into public/ preserving the path, renaming to report.pdf
+          find . -name "main.pdf" | while read -r pdf; do
+            # Remove leading './' and trailing '/main.pdf' to get the category/lab path
+            dir_path=$(dirname "$pdf" | sed 's|^\./||')
+            mkdir -p "public/$dir_path"
+            cp "$pdf" "public/$dir_path/report.pdf"
+          done
+
+      - name: Generate Index
+        run: |
+          # Use Python for a more robust indexer that handles paths correctly
+          python3 -c "
+          import os
+          with open('public/index.html', 'w') as f:
+              f.write('<html><head><title>Reports</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;} a{text-decoration:none;color:#0070f3;}</style></head><body>')
+              f.write('<h1>Report Archive</h1><ul>')
+              for root, dirs, files in os.walk('public'):
+                  for file in files:
+                      if file == 'report.pdf':
+                          full_path = os.path.relpath(os.path.join(root, file), 'public')
+                          display_name = os.path.dirname(full_path)
+                          f.write(f'<li><a href=\"{full_path}\">{display_name}</a></li>')
+              f.write('</ul></body></html>')
+          "
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: "your-project-name"
+          directory: "public"
