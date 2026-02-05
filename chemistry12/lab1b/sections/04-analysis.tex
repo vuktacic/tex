@@ -14,6 +14,7 @@
             xmajorgrids=true,
             grid style=dashed,
             xmin=0, xmax=5,
+            xticklabel style={/pgf/number format/fixed, /pgf/number format/precision=1},
             ymin=27.0, ymax=29,
             width=12cm,
             height=7cm,
@@ -83,4 +84,94 @@
         \end{axis}
     \end{tikzpicture}
     \caption{Change in mass of the system with average rates.}
+\end{figure}
+\subsection{Temperature \& Surface Area Test Analysis}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Mass Change Over Time of Denture Tablets},
+            xlabel={Time (minutes)},
+            ylabel={System Mass (g)},
+            ymajorgrids=true,
+            xmajorgrids=true,
+            grid style=dashed,
+            xmin=0, xmax=5,
+            xticklabel style={/pgf/number format/fixed, /pgf/number format/precision=1},
+            ymin=2.0, ymax=3.0,
+            width=12cm,
+            height=7cm,
+            legend style={at={(1.05,1)}, anchor=north west}
+        ]
+        
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 1 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/timeseries.csv};
+        \addlegendentry{Test 1 Mass (Control)}
+
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.5)
+            (5, 2.4)
+        };
+        \addlegendentry{Test 1 Average Rate}
+
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 2 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/timeseries.csv};
+        \addlegendentry{Test 2 Mass (Crushed)}
+
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.5)
+            (3.5, 2.3)
+        };
+        \addlegendentry{Test 2 Average Rate}
+
+        \addplot[
+            color=green,
+            mark=square,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 3 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/timeseries.csv};
+        \addlegendentry{Test 3 Mass (Heated)}
+
+        \addplot[
+            color=green,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.5)
+            (2.0, 2.4)
+        };
+        \addlegendentry{Test 3 Average Rate}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Change in mass of the system with average rates for temperature and surface area test.}
 \end{figure}

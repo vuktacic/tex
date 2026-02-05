@@ -1,6 +1,8 @@
 \section{Data/Observations}
-    \subsection{Concetration Test Data}
-\begin{table}[h]
+
+\subsection{Concetration Test}
+\subsubsection{Concentration Test Data}
+\begin{table}[H]
     \centering
     
     \begin{minipage}[t]{0.46\textwidth}
@@ -8,15 +10,40 @@
         \caption{Initial Parameters of Open \ce{CaCO3(s)} and \ce{HCl(aq)} Reaction.}
         
         \vspace{0.5em}
+
+        {
+            \aboverulesep=0pt
+            \belowrulesep=0pt
         \pgfplotstabletypeset[
             col sep=comma,
             string type,
-            every head row/.style={before row=\toprule, after row=\midrule},
-            every last row/.style={after row=\bottomrule},
-            columns/Parameter/.style={column name=\textbf{Parameter}, column type=l},
-            columns/Test 1/.style={column name=\textbf{Test 1}, column type=c, fixed, precision=1},
-            columns/Test 2/.style={column name=\textbf{Test 2}, column type=c, fixed, precision=1}
+            every head row/.style={
+                before row={\midrule},
+                after row={\midrule}
+            },
+            every nth row={1}{before row=\midrule},
+            every last row/.style={
+                after row={\midrule}
+            },
+            columns/Parameter/.style={
+                column name=\textbf{Parameter},
+                column type={|l}, % <--- Adds left vertical line 
+                string type
+            },
+            columns/Test 1/.style={
+                column name=\textbf{Test 1}, 
+                fixed, 
+                column type={|c}, % <--- Adds center vertical line
+                precision=1
+            },
+            columns/Test 2/.style={
+                column name=\textbf{Test 2}, 
+                fixed, 
+                column type={|c|}, % <--- Adds middle and right-most vertical line
+                precision=1
+            }
         ]{data/concentration/metadata.csv}
+        }
     \end{minipage}
     \hfill
     \begin{minipage}[t]{0.46\textwidth}
@@ -24,78 +51,140 @@
         \caption{Change in Mass Over Time of an Open \ce{CaCO3(s)} and \ce{HCl(aq)} Reaction.}
         
         \vspace{0.5em}
+        
+        {
+            \aboverulesep=0pt
+            \belowrulesep=0pt
         \pgfplotstabletypeset[
             col sep=comma,
-            every head row/.style={before row=\toprule, after row=\midrule},
-            every last row/.style={after row=\bottomrule},
+            string type,
+            every head row/.style={
+                before row={\midrule},
+                after row={\midrule}
+            },
+            every nth row={1}{before row=\midrule},
+            every last row/.style={
+                after row={\midrule}
+            },
             columns/Time (min:sec)/.style={
-                string type, 
                 column name=\textbf{Time},
-                column type=c
+                column type={|c}, % <--- Adds left vertical line 
+                string type
             },
             columns/Test 1 Mass (g)/.style={
                 column name=\textbf{Test 1 Mass (g)}, 
-                column type=c,
                 fixed, 
+                column type={|c}, % <--- Adds center vertical line
                 precision=1
             },
             columns/Test 2 Mass (g)/.style={
                 column name=\textbf{Test 2 Mass (g)}, 
-                column type=c,
                 fixed, 
+                column type={|c|}, % <--- Adds middle and right-most vertical line
                 precision=1
             }
         ]{data/concentration/timeseries.csv}
+        }
     \end{minipage}
 \end{table}
 
+The mass data collected here is the sum of the mass of the \ce{HCl(aq)} solution and the \ce{CaCO3(s)} rock.
+\subsubsection{Concentration Test Observations}
+
 \subsection{Temperature and Surface Area Test Data}
-    \begin{table}[h]
+\subsubsection{Our Group's Data}
+    \begin{table}[H]
     \centering
     \caption{Initial Parameters of Open Denture Tablet Reactions.}
         \vspace{0.5em}
+        {
+            \aboverulesep=0pt
+            \belowrulesep=0pt
         \pgfplotstabletypeset[
             col sep=comma,
             string type,
-            every head row/.style={before row=\toprule, after row=\midrule},
-            every last row/.style={after row=\bottomrule},
-            columns/Parameter/.style={column name=\textbf{Parameter}, column type=l},
-            columns/Test 1/.style={column name=\textbf{Test 1 (Control)}, column type=c, fixed, precision=1},
-            columns/Test 2/.style={column name=\textbf{Test 2 (Crushed)}, column type=c, fixed, precision=1},
-            columns/Test 3/.style={column name=\textbf{Test 3 (Heated)}, column type=c, fixed, precision=1}
+            every head row/.style={
+                before row={\midrule},
+                after row={\midrule}
+            },
+            every nth row={1}{before row=\midrule},
+            every last row/.style={
+                after row={\midrule}
+            },
+            columns/Parameter/.style={
+                column name=\textbf{Parameter},
+                column type={|l}, % <--- Adds left vertical line 
+                string type
+            },
+            columns/Test 1/.style={
+                column name=\textbf{Test 1 (Control)}, 
+                fixed, 
+                column type={|c}, % <--- Adds center vertical line
+                precision=1
+            },
+            columns/Test 2/.style={
+                column name=\textbf{Test 2 (Crushed)}, 
+                fixed, 
+                column type={|c}, % <--- Adds middle vertical line
+                precision=1
+            },
+            columns/Test 3/.style={
+                column name=\textbf{Test 3 (Heated)}, 
+                fixed, 
+                column type={|c|}, % <--- Adds middle and right-most vertical line
+                precision=1
+            }
         ]{data/tempsurfacearea/metadata.csv}
+        }
 \end{table}
-    \begin{table}[h]
+    \begin{table}[H]
         \centering
         \caption{Change in Mass Over Time of Open Denture Tablet Reactions.}
         
         \vspace{0.5em}
+        {
+            \aboverulesep=0pt
+            \belowrulesep=0pt
         \pgfplotstabletypeset[
             col sep=comma,
-            every head row/.style={before row=\toprule, after row=\midrule},
-            every last row/.style={after row=\bottomrule},
+            string type,
+            every head row/.style={
+                before row={\midrule},
+                after row={\midrule}
+            },
+            every nth row={1}{before row=\midrule},
+            every last row/.style={
+                after row={\midrule}
+            },
             columns/Time (min:sec)/.style={
-                string type, 
                 column name=\textbf{Time},
-                column type=c
+                column type={|c}, % <--- Adds left vertical line 
+                string type
             },
             columns/Test 1 Mass (g)/.style={
                 column name=\textbf{Test 1 Mass (g)}, 
-                column type=c,
                 fixed, 
+                column type={|c}, % <--- Adds center vertical line
                 precision=1
             },
             columns/Test 2 Mass (g)/.style={
                 column name=\textbf{Test 2 Mass (g)}, 
-                column type=c,
                 fixed, 
+                column type={|c}, % <--- Adds middle vertical line
                 precision=1
             },
             columns/Test 3 Mass (g)/.style={
                 column name=\textbf{Test 3 Mass (g)}, 
-                column type=c,
                 fixed, 
+                column type={|c|}, % <--- Adds middle and right-most vertical line
                 precision=1
             }
         ]{data/tempsurfacearea/timeseries.csv}
+        }
         \end{table}
+
+The mass data collected here is based on the mass of the denture tablet. The scale was zeroed with the beaker and water. Data was not collected after the tablet was fully dissolved.
+
+\subsubsection{Talan \& Edward's Data}
+
+\subsubsection{Temperature \& Surface Area Test Observations}
