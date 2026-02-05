@@ -1,0 +1,164 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+
+% Config
+\pgfplotstableset{
+    empty cells with={---},
+    every head row/.style={before row=\toprule, after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    fixed zerofill=true,
+    precision=1,
+}
+
+\author{}
+
+\title{}
+
+\begin{document}
+
+% Start Title
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r}
+    \textbf{Vuk Tacic} & \today \\
+    Ali Mohammed             & Chemistry 12 \\
+\end{tabular*}
+\rule{\textwidth}{0pt}
+
+\vspace{2em}
+
+\begin{center}
+    {\Large \textbf{Lab 1B: Factors Affecting Reaction Rate}}
+\end{center}
+% End Title
+
+\section{Purpose}
+
+\section{Procedure}
+
+\section{Data/Observations}
+
+\begin{table}[h]
+    \centering
+    \caption{Change in Mass Over Time of an Open \ce{CaCO3(s)} and \ce{HCl(aq)} Reaction.}
+    
+    \begin{minipage}[t]{0.46\textwidth}
+        \centering
+        \textbf{Initial Parameters}
+        
+        \vspace{0.5em}
+        \pgfplotstabletypeset[
+            col sep=comma,
+            string type,
+            every head row/.style={before row=\toprule, after row=\midrule},
+            every last row/.style={after row=\bottomrule},
+            columns/Parameter/.style={column name=\textbf{Parameter}, column type=l},
+            columns/Test 1/.style={column name=\textbf{Test 1}, column type=c, fixed, precision=1},
+            columns/Test 2/.style={column name=\textbf{Test 2}, column type=c, fixed, precision=1}
+        ]{data/concentration/metadata.csv}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.46\textwidth}
+        \centering
+        \textbf{Total Mass Change Over Time}
+        
+        \vspace{0.5em}
+        \pgfplotstabletypeset[
+            col sep=comma,
+            every head row/.style={before row=\toprule, after row=\midrule},
+            every last row/.style={after row=\bottomrule},
+            columns/Time (min:sec)/.style={
+                string type, 
+                column name=\textbf{Time},
+                column type=c
+            },
+            columns/Test 1 Mass (g)/.style={
+                column name=\textbf{Test 1 Mass (g)}, 
+                column type=c,
+                fixed, 
+                precision=1
+            },
+            columns/Test 2 Mass (g)/.style={
+                column name=\textbf{Test 2 Mass (g)}, 
+                column type=c,
+                fixed, 
+                precision=1
+            }
+        ]{data/concentration/timeseries.csv}
+    \end{minipage}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Mass Change Over Time of an Open \ce{CaCO3(s)} and \ce{HCl(aq)} Reaction},
+            xlabel={Time (minutes)},
+            ylabel={Test 1 System Mass (g)},
+            ylabel style={color=blue},
+            ymajorgrids=true,
+            xmajorgrids=true,
+            grid style=dashed,
+            xmin=0, xmax=5,
+            ymin=27.0, ymax=29,
+            width=12cm,
+            height=7cm,
+            axis y line*=left,
+            legend style={at={(0.03,0.97)}, anchor=north west}
+        ]
+        
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 1 Mass (g),
+            col sep=comma
+        ] {data/concentration/timeseries.csv};
+        \addlegendentry{Test 1 Mass (1.0M \ce{HCl})}
+        
+        \end{axis}
+        
+        \begin{axis}[
+            xlabel={Time (minutes)},
+            ylabel={Test 2 System Mass (g)},
+            ylabel style={color=red},
+            xmin=0, xmax=5,
+            ymin=44.5, ymax=46.5,
+            width=12cm,
+            height=7cm,
+            axis y line*=right,
+            axis x line=none,
+            legend style={at={(0.97,0.97)}, anchor=north east}
+        ]
+        
+        \addplot[
+            color=red,
+            mark=circle,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 2 Mass (g),
+            col sep=comma
+        ] {data/concentration/timeseries.csv};
+        \addlegendentry{Test 2 Mass (3.0M \ce{HCl})}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Mass decay of \ce{CaCO3(s)} and \ce{HCl(aq)} reaction system over time with dual y-axes}
+\end{figure}
+
+\section{Analysis}
+
+\section{Conclusion}
+
+\end{document}
