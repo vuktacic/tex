@@ -11,36 +11,75 @@ jobs:
       - name: Compile All Reports
         uses: xu-cheng/latex-action@v3
         with:
-          # This glob finds every main.tex in your project
+          # Scans all subdirectories for main.tex
           root_file: "**/main.tex"
           glob_root_file: true
-          # CRITICAL: Changes PWD to the folder containing the current main.tex
+          # Ensures compiler sees 'data/' and 'sections/' folders relative to the .tex file
           work_in_root_file_dir: true
-          # Prevents one broken lab from stopping the entire build
-          continue_on_error: true
-          # Standard latexmk arguments
+          # Standard latexmk flags
           args: "-pdf -file-line-error -halt-on-error -interaction=nonstopmode"
 
-      - name: Organize for Deployment
+      - name: Organize and Rename PDFs
         run: |
-          mkdir -p deploy
-          # Find all successfully compiled PDFs
-          # Note: We rename 'main.pdf' to 'report.pdf' to avoid generic names in links
+          mkdir -p public
+          # Iterate through all main.pdf files found in subfolders
           find . -name "main.pdf" | while read -r pdf; do
-            # Get the directory structure excluding '.'
+            # Get the directory path (e.g., chemistry12/lab1b)
+            # We strip the leading ./ and ignore the 'public' folder itself
             dir_path=$(dirname "$pdf" | sed 's|^\./||')
-            mkdir -p "deploy/$dir_path"
-            cp "$pdf" "deploy/$dir_path/report.pdf"
+            
+            # Create that structure in our deployment folder
+            mkdir -p "public/$dir_path"
+            
+            # Copy and rename to 'report.pdf' for clean URLs
+            cp "$pdf" "public/$dir_path/report.pdf"
+            echo "Organized: public/$dir_path/report.pdf"
           done
 
-      - name: Generate Index
+      - name: List Compiled Files (Debug)
+        run: find public -maxdepth 4 -name "*.pdf"
+
+      - name: Generate Browsable Index
+        shell: python
         run: |
-          # Robust Python script to generate a clean, browsable file list
-          python3 -c "
           import os
-          with open('deploy/index.html', 'w') as f:
-              f.write('<html><head><title>Archive</title><style>body{font-family:sans-serif;padding:50px;line-height:1.5;} a{text-decoration:none;color:#0070f3;} li{margin-bottom:8px;}</style></head><body>')
-              f.write('<h1>Lab Report Archive</h1><ul>')
+          
+          output_dir = 'public'
+          index_path = os.path.join(output_dir, 'index.html')
+          
+          html_content = [
+              '<html><head><title>Lab Report Archive</title>',
+              '<style>body{font-family:sans-serif;padding:50px;line-height:1.6;max-width:800px;margin:0 auto;}',
+              'a{text-decoration:none;color:#0070f3;} li{margin-bottom:12px; font-size:1.1em;}',
+              'ul{list-style-type: "🧪 ";}</style></head>',
+              '<body><h1>Lab Report Archive</h1><hr><ul>'
+          ]
+          
+          found_any = False
+          # Sort the walk to keep subjects grouped (e.g., chemistry together)
+          for root, dirs, files in sorted(os.walk(output_dir)):
+              for file in sorted(files):
+                  if file == 'report.pdf':
+                      found_any = True
+                      # Get the relative path for the link
+                      rel_path = os.path.relpath(os.path.join(root, file), output_dir)
+                      # Use the directory name as the display label
+                      display_label = os.path.dirname(rel_path).replace('/', ' / ')
+                      html_content.append(f'<li><a href="./{rel_path}">{display_label}</a></li>')
+          
+          if not found_any:
+              html_content.append('<li>No reports were successfully compiled.</li>')
               
-              # Walk through the deploy folder to find our PDFs
-              for
+          html_content.append('</ul></body></html>')
+          
+          with open(index_path, 'w') as f:
+              f.write("\n".join(html_content))
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: "your-project-name" # Ensure this matches your dashboard exactly
+          directory: "public"
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
