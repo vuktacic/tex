@@ -11,6 +11,8 @@
             ylabel={Test 1 System Mass (g)},
             ylabel style={color=blue},
             ymajorgrids=true,
+            yminorgrids=true,
+            minor tick num=1,
             xmajorgrids=true,
             grid style=dashed,
             xmin=0, xmax=5,
@@ -91,15 +93,17 @@
     \centering
     \begin{tikzpicture}
         \begin{axis}[
-            title={Mass Change Over Time of Denture Tablets},
+            title={Mass Change Over Time of Denture Tablets (Low Precision)},
             xlabel={Time (minutes)},
             ylabel={System Mass (g)},
             ymajorgrids=true,
+            yminorgrids=true,
+            minor tick num=1,
             xmajorgrids=true,
             grid style=dashed,
             xmin=0, xmax=5,
             xticklabel style={/pgf/number format/fixed, /pgf/number format/precision=1},
-            ymin=2.0, ymax=3.0,
+            ymin=2.1, ymax=2.7,
             width=12cm,
             height=7cm,
             legend style={at={(1.05,1)}, anchor=north west}
@@ -174,4 +178,95 @@
         \end{axis}
     \end{tikzpicture}
     \caption{Change in mass of the system with average rates for temperature and surface area test.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Mass Change Over Time of Denture Tablets (Higher Precision)},
+            xlabel={Time (minutes)},
+            ylabel={System Mass (g)},
+            ymajorgrids=true,
+            yminorgrids=true,
+            minor tick num=3,
+            xmajorgrids=true,
+            grid style=dashed,
+            xmin=0, xmax=3,
+            xticklabel style={/pgf/number format/fixed, /pgf/number format/precision=1},
+            ymin=2.1, ymax=2.7,
+            width=12cm,
+            height=7cm,
+            legend style={at={(1.05,1)}, anchor=north west}
+        ]
+        
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 1 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/alttimeseries.csv};
+        \addlegendentry{Test 1 Mass (Control)}
+
+        \addplot[
+            color=blue,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.57)
+            (3, 2.42)
+        };
+        \addlegendentry{Test 1 Average Rate}
+
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 2 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/alttimeseries.csv};
+        \addlegendentry{Test 2 Mass (Crushed)}
+
+        \addplot[
+            color=red,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.53)
+            (3, 2.43)
+        };
+        \addlegendentry{Test 2 Average Rate}
+
+        \addplot[
+            color=green,
+            mark=square,
+            line width=0.5pt,
+        ] table[
+            x expr=\coordindex*0.5,
+            y=Test 3 Mass (g),
+            col sep=comma
+        ] {data/tempsurfacearea/alttimeseries.csv};
+        \addlegendentry{Test 3 Mass (Heated)}
+
+        \addplot[
+            color=green,
+            mark=square,
+            line width=0.5pt,
+            dashed
+        ] coordinates{
+            (0, 2.59)
+            (3, 2.20)
+        };
+        \addlegendentry{Test 3 Average Rate}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Change in mass of the system with average rates for temperature and surface area test with 2 decimal places of precision from Abigail \& Jersey's data.}
 \end{figure}
