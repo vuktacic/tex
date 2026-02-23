@@ -1,0 +1,50 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{float}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage{makecell}
+
+% Unit macros (use siunitx)
+\newcommand{\ns}{\si{\newton\second}}
+\newcommand{\Junit}{\si{\joule}}
+\newcommand{\mps}{\si{\meter\per\second}}
+\newcommand{\kg}{\si{\kilogram}}
+
+\pgfplotsset{compat=1.18}
+
+\graphicspath{{images/}}
+
+% Config for pgfplotstable
+\pgfplotstableset{
+    empty cells with={---},
+    every head row/.style={before row=\toprule, after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    fixed zerofill=true,
+    precision=2,
+}
+
+
+\author{Vuk Tacic}
+
+\title{Collision Lab Report}
+
+\begin{document}
+\maketitle
+
+\input{sections/01-purpose}
+\input{sections/02-ground-rules}
+\input{sections/03-data}
+\input{sections/04-analysis}
+\input{sections/05-explanation}
+
+\end{document}

@@ -1,0 +1,322 @@
+\section{Analysis}
+
+\subsection{Method}
+For each trial and each object:
+$$
+p = mv \\
+K = \frac{1}{2}mv^2
+$$
+System totals are vector sum of momenta and scalar sum of kinetic energies. We compare initial and final totals and report \(\Delta\) (difference) and a conservation verdict (momentum: magnitude tolerance 0.02\,\ns; K: percent threshold 3\%).
+
+\subsection{Initial Momenta}
+\begin{table}[H]
+\centering
+\caption{Initial momenta (\ns)}
+\vspace{0.5em}
+{
+    \aboverulesep=0pt
+    \belowrulesep=0pt
+\pgfplotstabletypeset[
+    col sep=comma,
+    string type,
+    every head row/.style={
+        before row={\midrule},
+        after row={\midrule}
+    },
+    every nth row={1}{before row=\midrule},
+    every last row/.style={
+        after row={\midrule}
+    },
+    columns/Collision/.style={
+        column name=\textbf{Collision},
+        column type={|l}, % <--- Adds left vertical line 
+        string type
+    },
+    columns/p1_i_x/.style={
+        column name=\textbf{p$_{1,i,x}$}, 
+        fixed, 
+        column type={|c}, % <--- Adds center vertical line
+        precision=3
+    },
+    columns/p1_i_y/.style={
+        column name=\textbf{p$_{1,i,y}$}, 
+        fixed, 
+        column type={|c}, % <--- Adds center vertical line
+        precision=3
+    },
+    columns/p1_i_mag/.style={
+        column name=\textbf{p$_{1,i}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_i_x/.style={
+        column name=\textbf{p$_{2,i,x}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_i_y/.style={
+        column name=\textbf{p$_{2,i,y}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_i_mag/.style={
+        column name=\textbf{p$_{2,i}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_i_x/.style={
+        column name=\textbf{p$_{sys,i,x}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_i_y/.style={
+        column name=\textbf{p$_{sys,i,y}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_i_mag/.style={
+        column name=\textbf{p$_{sys,i}$}, 
+        fixed, 
+        column type={|c|}, % <--- Adds middle and right-most vertical line
+        precision=3
+    }
+]{data/results-momentum-initial.csv}
+}
+\end{table}
+
+\subsection{Final Momenta}
+\begin{table}[H]
+\centering
+\caption{Final momenta (\ns)}
+\vspace{0.5em}
+\makebox[\textwidth][c]{%
+{
+    \aboverulesep=0pt
+    \belowrulesep=0pt
+\pgfplotstabletypeset[
+    col sep=comma,
+    string type,
+    every head row/.style={
+        before row={\midrule},
+        after row={\midrule}
+    },
+    every nth row={1}{before row=\midrule},
+    every last row/.style={
+        after row={\midrule}
+    },
+    columns/Collision/.style={
+        column name=\textbf{Collision},
+        column type={|l}, % <--- Adds left vertical line 
+        string type
+    },
+    columns/p1_f_x/.style={
+        column name=\textbf{p$_{1,f,x}$}, 
+        fixed, 
+        column type={|c}, % <--- Adds center vertical line
+        precision=3
+    },
+    columns/p1_f_y/.style={
+        column name=\textbf{p$_{1,f,y}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p1_f_mag/.style={
+        column name=\textbf{p$_{1,f}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_f_x/.style={
+        column name=\textbf{p$_{2,f,x}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_f_y/.style={
+        column name=\textbf{p$_{2,f,y}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p2_f_mag/.style={
+        column name=\textbf{p$_{2,f}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_f_x/.style={
+        column name=\textbf{p$_{sys,f,x}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_f_y/.style={
+        column name=\textbf{p$_{sys,f,y}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/p_sys_f_mag/.style={
+        column name=\textbf{p$_{sys,f}$}, 
+        fixed, 
+        column type={|c|}, % <--- Adds middle and right-most vertical line
+        precision=3
+    },
+    columns/delta_p/.style={
+        column name=\textbf{$\Delta p$},fixed,precision=3,column type={|c}
+    },
+    columns/momentum_conserved/.style={
+        column name=\textbf{Conserved},
+        string type,
+        column type={|c|}
+    }
+]{data/results-momentum-final.csv}
+}%
+} 
+\end{table}
+
+\subsection{Kinetic Energy}
+\begin{table}[H]
+\centering
+\caption{Kinetic Energy (\Junit)}
+\vspace{0.5em}
+{
+    \aboverulesep=0pt
+    \belowrulesep=0pt
+\pgfplotstabletypeset[
+    col sep=comma,
+    string type,
+    every head row/.style={
+        before row={\midrule},
+        after row={\midrule}
+    },
+    every nth row={1}{before row=\midrule},
+    every last row/.style={
+        after row={\midrule}
+    },
+    columns/Collision/.style={
+        column name=\textbf{Collision},
+        column type={|l}, % <--- Adds left vertical line 
+        string type
+    },
+    columns/K1_i/.style={
+        column name=\textbf{K$_{1,i}$}, 
+        fixed, 
+        column type={|c}, % <--- Adds center vertical line
+        precision=3
+    },
+    columns/K2_i/.style={
+        column name=\textbf{K$_{2,i}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/K_sys_i/.style={
+        column name=\textbf{K$_{sys,i}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/K1_f/.style={
+        column name=\textbf{K$_{1,f}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/K2_f/.style={
+        column name=\textbf{K$_{2,f}$}, 
+        fixed, 
+        column type={|c}, 
+        precision=3
+    },
+    columns/K_sys_f/.style={
+        column name=\textbf{K$_{sys,f}$}, 
+        fixed, 
+        column type={|c|}, % <--- Adds middle and right-most vertical line
+        precision=3
+    },
+    columns/delta_K/.style={
+        column name=\textbf{$\Delta K$},fixed,precision=3,column type={|c}
+    },
+    columns/K_conserved/.style={
+        column name=\textbf{Conserved},
+        string type,
+        column type={|c|}
+    }
+]{data/results-k.csv}
+}
+\end{table}
+
+Note that there are rounding errors due to the low precision the PhET simulation.
+
+\subsection{Example Calculations}
+For the Inelastic 2 trial, we can calculate all results values from our raw data.
+
+% Use 3 significant-figure style for printed pgfmath numbers
+\pgfkeys{/pgf/number format/.cd, fixed, precision=3}
+
+%% Pull in the second row of the 3.2 inelastic collisions table.
+\pgfplotstableread[col sep=comma]{data/inelastic-collisions.csv}\inelasticdata
+% row index 1 = second data row (Inelastic 2)
+\pgfplotstablegetelem{1}{Collision}\of\inelasticdata \edef\inelcol{\pgfplotsretval}
+
+\pgfplotstablegetelem{1}{Mass_1_kg}\of\inelasticdata \edef\vmone{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Mass_2_kg}\of\inelasticdata \edef\vmtwo{\pgfplotsretval}
+
+\pgfplotstablegetelem{1}{Init_Vel_1x_ms}\of\inelasticdata \edef\vvoneix{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Init_Vel_1y_ms}\of\inelasticdata \edef\vvoneiy{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Init_Vel_2x_ms}\of\inelasticdata \edef\vvtwoix{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Init_Vel_2y_ms}\of\inelasticdata \edef\vvtwoiy{\pgfplotsretval}
+
+\pgfplotstablegetelem{1}{Final_Vel_1x_ms}\of\inelasticdata \edef\vvonefx{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Final_Vel_1y_ms}\of\inelasticdata \edef\vvonefy{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Final_Vel_2x_ms}\of\inelasticdata \edef\vvtwofx{\pgfplotsretval}
+\pgfplotstablegetelem{1}{Final_Vel_2y_ms}\of\inelasticdata \edef\vvtwofy{\pgfplotsretval}
+
+
+Momenta:
+$$
+\begin{aligned}
+    m_1 = \vmone\,\si{\kilogram},& \qquad m_2 = \vmtwo\,\si{\kilogram} \\\\
+%
+    v_{1,i,x} = \vvoneix\,\mps,& \qquad v_{2,i,x} = \vvtwoix\,\mps \\
+    v_{1,i,y} = \vvoneiy\,\mps,& \qquad v_{2,i,y} = \vvtwoiy\,\mps \\
+    v_{1,f,x} = \vvonefx\,\mps,& \qquad v_{2,f,x} = \vvtwofx\,\mps \\
+    v_{1,f,y} = \vvonefy\,\mps,& \qquad v_{2,f,y} = \vvtwofy\,\mps \\
+%
+    p_{1,i,x} = m_1 v_{1,i,x} = \vmone \kg \cdot \vvoneix \mps = \pgfmathparse{\vmone * \vvoneix}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{2,i,x} = \pgfmathparse{\vmtwo * \vvtwoix}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    p_{1,i,y} = \pgfmathparse{\vmone * \vvoneiy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{2,i,y} = \pgfmathparse{\vmtwo * \vvtwoiy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    p_{1,f,x} = \pgfmathparse{\vmone * \vvonefx}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{2,f,x} = \pgfmathparse{\vmtwo * \vvtwofx}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    p_{1,f,y} = \pgfmathparse{\vmone * \vvonefy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{2,f,y} = \pgfmathparse{\vmtwo * \vvtwofy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+%
+    |\vec{p}_{1,i}| = \sqrt{p_{1,i,x}^2 + p_{1,i,y}^2} = \pgfmathparse{sqrt((\vmone * \vvoneix)^2 + (\vmone * \vvoneiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad |\vec{p}_{2,i}| = \pgfmathparse{sqrt((\vmtwo * \vvtwoix)^2 + (\vmtwo * \vvtwoiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    |\vec{p}_{1,f}| = \pgfmathparse{sqrt((\vmone * \vvonefx)^2 + (\vmone * \vvonefy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad |\vec{p}_{2,f}| = \pgfmathparse{sqrt((\vmtwo * \vvtwofx)^2 + (\vmtwo * \vvtwofy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+%
+    p_{sys,i,x} = p_{1,i,x} + p_{2,i,x} = \pgfmathparse{\vmone * \vvoneix + \vmtwo * \vvtwoix}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{sys,f,x} = \pgfmathparse{\vmone * \vvonefx + \vmtwo * \vvtwofx}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    p_{sys,i,y} = \pgfmathparse{\vmone * \vvoneiy + \vmtwo * \vvtwoiy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns,& \qquad p_{sys,f,y} = \pgfmathparse{\vmone * \vvonefy + \vmtwo * \vvtwofy}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+%
+    |\vec{p}_{sys,i}| &= \sqrt{p_{sys,i,x}^2 + p_{sys,i,y}^2} = \pgfmathparse{sqrt((\vmone * \vvoneix + \vmtwo * \vvtwoix)^2 + (\vmone * \vvoneiy + \vmtwo * \vvtwoiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns, \\ |\vec{p}_{sys,f}| &= \sqrt{p_{sys,f,x}^2 + p_{sys,f,y}^2} = \pgfmathparse{sqrt((\vmone * \vvonefx + \vmtwo * \vvtwofx)^2 + (\vmone * \vvonefy + \vmtwo * \vvtwofy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+%
+    \Delta p &= |\vec{p}_{sys,f}| - |\vec{p}_{sys,i}| = \pgfmathparse{sqrt((\vmone * \vvonefx + \vmtwo * \vvtwofx)^2 + (\vmone * \vvonefy + \vmtwo * \vvtwofy)^2) - sqrt((\vmone * \vvoneix + \vmtwo * \vvtwoix)^2 + (\vmone * \vvoneiy + \vmtwo * \vvtwoiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\ns \\
+    \therefore~&\text{Momentum is conserved.}
+\end{aligned}
+$$
+
+Kinetic Energy:
+$$
+\begin{aligned}
+    K_{1,i} = \frac{1}{2} m_1 v_{1,i}^2 = \frac{1}{2} m_1 (v_{1,i,x}^2 + v_{1,i,y}^2) = \pgfmathparse{0.5 * \vmone * ((\vvoneix)^2 + (\vvoneiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit,& \qquad K_{2,i} = \pgfmathparse{0.5 * \vmtwo * ((\vvtwoix)^2 + (\vvtwoiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit \\
+    K_{1,f} = \pgfmathparse{0.5 * \vmone * ((\vvonefx)^2 + (\vvonefy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit,& \qquad K_{2,f} = \pgfmathparse{0.5 * \vmtwo * ((\vvtwofx)^2 + (\vvtwofy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit \\
+    K_{sys,i} = K_{1,i} + K_{2,i} = \pgfmathparse{0.5 * \vmone * ((\vvoneix)^2 + (\vvoneiy)^2) + 0.5 * \vmtwo * ((\vvtwoix)^2 + (\vvtwoiy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit,& \qquad K_{sys,f} = \pgfmathparse{0.5 * \vmone * ((\vvonefx)^2 + (\vvonefy)^2) + 0.5 * \vmtwo * ((\vvtwofx)^2 + (\vvtwofy)^2)}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit \\
+%
+    \Delta K = K_{sys,f} &- K_{sys,i} = \pgfmathparse{(0.5 * \vmone * ((\vvonefx)^2 + (\vvonefy)^2) + 0.5 * \vmtwo * ((\vvtwofx)^2 + (\vvtwofy)^2)) - (0.5 * \vmone * ((\vvoneix)^2 + (\vvoneiy)^2) + 0.5 * \vmtwo * ((\vvtwoix)^2 + (\vvtwoiy)^2))}\pgfmathprintnumber[fixed,precision=3]{\pgfmathresult}\,\Junit \\
+    \therefore~\text{Kinetic}~&\text{energy is not conserved.}
+\end{aligned}
+$$
