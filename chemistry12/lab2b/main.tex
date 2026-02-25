@@ -1,3 +1,5 @@
+% !TEX root = main.tex
+
 \documentclass{article}
 
 \usepackage[english]{babel}
@@ -11,18 +13,10 @@
 \usepackage[version=4]{mhchem}
 \usepackage{float}
 
-\newcommand{\rxn}{\ce{Fe^{3+} + SCN^- \rightleftharpoons FeSCN^{2+}}}
-\newcommand{\rxnplain}{\rxn}
-\newcommand{\rxndisplay}{
-\begin{center}
-  \rxn
-
-  \vspace{0.5em}
-  \begin{tabular}{c c c}
-    \ce{Fe^{3+}} & \ce{SCN^-} & \ce{FeSCN^{2+}} \\
-    \small (pale yellow) & \small (colourless) & \small (blood red)
-  \end{tabular}
-\end{center}
+\newcommand{\rxn}{
+    \underset{\text{(yellow)}}{\ce{Fe^{3+}}} + 
+    \underset{\text{(colourless)}}{\ce{SCN-}} \rightleftharpoons 
+    \underset{\text{(red)}}{\ce{FeSCN^{2+}}}
 }
 
 % Config
@@ -56,8 +50,6 @@
     {\Large \textbf{Lab 2B: Effect of Concentration on Equilibrium Systems}}
 \end{center}
 % End Title
-
-\rxndisplay
 
 \input{sections/01-purpose}
 \input{sections/02-procedure}
