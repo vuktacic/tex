@@ -1,0 +1,60 @@
+% !TEX root = main.tex
+
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{booktabs}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usepackage{siunitx}
+\usepackage[version=4]{mhchem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\newcommand{\rxnpl}{
+    \ce{3BaCl2 (aq) + \ce{Al2(SO4)3} (aq) \rightleftharpoons \ce{3BaSO4} + \ce{2AlCl3}}
+}
+
+% Config
+\pgfplotstableset{
+    empty cells with={---},
+    every head row/.style={before row=\toprule, after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    fixed zerofill=true,
+    precision=1,
+}
+
+% Chemical equation macros
+
+\author{}
+
+\title{}
+
+\begin{document}
+
+% Start Title
+\noindent
+\begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r}
+    \textbf{\underline{Vuk Tacic}} & \today \\
+                 & Chemistry 12 \\
+\end{tabular*}
+\rule{\textwidth}{0pt}
+
+\vspace{2em}
+
+\begin{center}
+    {\Large \textbf{Lab 3A: Precipitation Reactions}}
+\end{center}
+% End Title
+
+\input{sections/01-purpose}
+\input{sections/02-procedure}
+\input{sections/03-data}
+\input{sections/04-analysis}
+\input{sections/05-conclusion}
+
+\end{document}
