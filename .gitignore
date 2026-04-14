@@ -326,6 +326,7 @@ TSWLatexianTemp*
 #*Notes.bib
 
 
-.clinerules
+
 .github
 ./github/*
+AGENTS.MD

@@ -1,0 +1,67 @@
+% !TEX root = ../main.tex
+
+\section{Conclusion}
+
+% make sure to define solubility and ksp
+The \ksp for \ce{PbI2} is approximately\mksp as calculated above. This was calculated with the datapoint taken at \dv = 5.9mL, which was when faint crystals started forming in the solution. This was when the solution was just barely saturated, as opposed to later measurements where enough precipitate formed to give the solution a yellow hue.
+
+\ksp represents the maximum amount of ions that can be dissolved in a solution, therefore this datapoint was chosen as nearly all the ions were still dissolved with barely any precipitate, meaning that the calculations would be as close as possible to a perfectly saturated solution.
+
+Had a later measurement been chosen, the calculated\ksp would have been much higher than the accurate value, as the ions forming the precipitate would still be included in the calculation. This would have resulted in an erroneously high solubility, telling us that \ce{PbI2} could dissolve more ions than it actually can.
+
+Similarly, had an earlier measurement been chosen, the calculated\ksp would tell us that \ce{PbI2} has much lower solubility than it actually does and would not be able to dissolve as many ions as it actually can. This is because the solution would not have been saturated yet, meaning that more ions could still be dissolved.
+
+
+\subsection{Sources of Error}
+
+The actual\ksp is 8.5x10\textsuperscript{-9}, with our calculated value of\mksp, our percent error is:
+\begin{align*}
+    \frac{|8.0 \times 10^{-9} - 8.5 \times 10^{-9}|}{8.5 \times 10^{-9}} \times 100 \% \approx 6\%
+\end{align*}
+
+There are a couple sources of error in this experiment.
+
+The limiting factor was the fact that we were observing whether a precipitate formed with our eyes. This meant that we were limited by our ability to see the faint crystals forming. Given a more precise tool, a more precise threshold could be found for when the solution was saturated. This could possibly be measured through conductance of the solution or faint colour detection.
+
+Combined with the more precise tool, a burette with a smaller volume increment would aid in finding a more precise threshold. A smaller volume increment would help with creating a more precise starting value for the \ce{Pb(NO3)2} solution.
+
+\subsubsection{Alternative Sources of Error}
+This experiment was a failure, as we extracted more ions than existed in the original solutions. There are a couple of possible reasons for this.
+The first is that \ce{PbI2} ions were not the only species captured by the filter paper. It is possible that some \ce{NO3-} or \ce{K+} ions were captured by the filter paper, adding to the perceived mass of the precipitate.
+
+The second reason is that the filter paper has variation in mass. Looking at the measured masses of the filter paper:
+\begin{table}[H]
+        \centering
+        \caption{Alternative Data (averages).}
+        
+        \vspace{0.5em}
+        
+        {
+            \aboverulesep=0pt
+            \belowrulesep=0pt
+        \pgfplotstabletypeset[
+            col sep=comma,
+            string type,
+            every head row/.style={
+                before row={\midrule},
+                after row={\midrule}
+            },
+            every nth row={1}{before row=\midrule},
+            every last row/.style={
+                after row={\midrule}
+            },
+            columns/Parameter/.style={
+                column name=\textbf{Parameter},
+                column type={|l},
+                string type
+            },
+            columns/Mass (g)/.style={
+                column name=\textbf{Mass (g)},
+                column type={|c|},
+                string type
+            }
+        ]{data/altaverage.csv}
+        }
+\end{table}
+
+There is high variation in the mass of the filter paper, with a range of 0.18g. While the precipitate was measured to be 2.55g - 2.47g = 0.08g, it very much could have been 0.01g or 0.15g, which would have resulted in either a physically possible mass or a even less sensible value. This is further exacerbated by the fact that the scales used only had two decimal places of precision, meaning even less accuracy in the mass of the precipitate.

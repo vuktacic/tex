@@ -1,0 +1,89 @@
+% !TEX root = ../main.tex
+
+\section{Analysis} \label{sec:analysis}
+Using the \dv value we can calculate an estimated \ksp for \ce{PbI2}. We will use the \dv when small crystals of \ce{PbI2} started appearing on the bottom of the flask. This is because the Ksp value represents when the solution is just saturated, and barely any precipitate is formed.
+
+The \ksp can be calculated via:
+\begin{equation}
+    K_{sp} = [\ce{Pb^{2+}}][{\ce{I^-}}]^2
+\end{equation}
+
+When we add \ce{KI} to the solution, the volume of the liquid increases, diluting both solutions. Therefore we must factor this into our calculations.
+
+Using $c_1v_1 = c_2v_2$, we can find the new concentrations of \ce{Pb^{2+}} and \ce{I^-} after $x$ mL of 0.020M \ce{KI} is added:
+
+\begin{align}
+    [\ce{Pb^{2+}}] &= 0.0020M \cdot \frac{50.0mL}{50.0mL + x~mL} \\
+    [\ce{I^-}] &= 0.020M \cdot \frac{x~mL}{50.0mL + x~mL}
+\end{align}
+
+Using this we can model \ksp as a function of $x$ (with two significant figures):
+\begin{equation}
+    K_{sp}(x) = \left(0.0020M \cdot \frac{50.0mL}{50.0mL + x~mL}\right) \cdot \left(0.020M \cdot \frac{x~mL}{50.0mL + x~mL}\right)^2
+\end{equation}
+
+When \dv = 5.9 mL, $K_{sp}(5.9~mL) = 8.0 \times 10^{-9}$
+
+We can view this graphically as well:
+
+% Use pgfplots to plot the modeled Ksp(x) and measured dv points from data/metadata.csv
+\begin{figure}[H]
+    \centering
+    % Read CSV (first column: dv)
+    \pgfplotstableread[col sep=comma]{data/metadata.csv}\datatable
+    % Create a new column 'ksp' by evaluating the model at each dv
+    \pgfplotstablecreatecol[create col/expr={
+        (0.0020*(50/(50+\thisrow{dv}))) * ((0.020*(\thisrow{dv}/(50+\thisrow{dv})))^2)
+    }]{ksp}{\datatable}
+
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=0.9\linewidth,
+        height=12cm,
+        xlabel={Added KI volume $x$ (mL)},
+        ylabel={$K_{sp}$},
+        % linear y axis (default)
+        grid=both,
+        legend pos=north east,
+        unbounded coords=jump,
+        xmin=0,
+        xmax=20,
+        enlarge x limits=false,
+    ]
+
+    % model curve
+    \addplot[smooth,domain=0.1:20,samples=200,blue] { (0.0020*(50/(50+x))) * ((0.020*(x/(50+x)))^2) };
+    \addlegendentry{Modeled $K_{sp}(x)$}
+
+    % measured points (computed ksp in the created column) with labels
+    % Format node text using \pgfmathprintnumber to ensure 2 significant figures
+    \addplot[only marks, mark=*, black,
+        % Format numbers to 2 significant figures using pgfmath (keep trailing zeros)
+        nodes near coords={\pgfmathprintnumber[sci,sci precision=1,sci zerofill=true]{\pgfplotspointmeta}},
+        every node near coord/.append style={anchor=north west,font=\scriptsize,xshift=2pt,yshift=5pt}
+    ]
+        table[x=dv,y=ksp]{\datatable};
+    \addlegendentry{Computed $K_{sp}$ from \dv}
+
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Modeled $K_{sp}(x)$ for \ce{PbI2} with measured \dv{} points from Table 1.}
+\end{figure}
+
+\subsection{Alternative Analysis}
+Using the calculated mass of the precipitate after drying, we can calculate the moles of \ce{PbI2} that were formed, and thus the moles of \ce{Pb^{2+}} and \ce{I^-} that were removed from the solution. The remaining moles dissolved in the solutioncan be used to calculate a \ksp value.
+
+Moles in precipitate (moles removed from solution):
+\begin{align*}
+0.08g~\ce{PbI2} \cdot \frac{1~mol~\ce{PbI2}}{461.0g~\ce{PbI2}} \cdot \frac{1~mol~\ce{Pb^{2+}}}{1~mol~\ce{PbI2}} &= 2 \times 10^{-4}~mol~\ce{Pb^{2+}} \\
+0.08g~\ce{PbI2} \cdot \frac{1~mol~\ce{PbI2}}{461.0g~\ce{PbI2}} \cdot \frac{2~mol~\ce{I^-}}{1~mol~\ce{PbI2}} &= 3 \times 10^{-4}~mol~\ce{I^-}
+\end{align*}
+
+Initial moles in solution ($n=cv$):
+\begin{align*}
+    0.010M~\ce{Pb(NO3)2} \cdot \frac{1M~\ce{Pb^{2+}}}{1M~\ce{Pb(NO3)2}} \cdot 10.0mL \cdot \frac{1L}{1000.0mL} &= 1.0 \times 10^{-4}~mol~\ce{Pb^{2+}} \\
+    0.020M~\ce{KI} \cdot \frac{1M~\ce{I^-}}{1M~\ce{KI}} \cdot 10.0mL \cdot \frac{1L}{1000.0mL} &= 2.0 \times 10^{-4}~mol~\ce{I^-}
+\end{align*}
+
+Here we already see the problem: we somehow ended up with more moles of \ce{Pb^{2+}} and \ce{I^-} in the precipitate than we started with in the solution. Because you cannot make matter out of thin air, this is impossible. We will cover possible sources of error in the conclusion.
+
